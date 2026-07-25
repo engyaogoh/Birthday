@@ -230,8 +230,5 @@ var storyScroll=document.getElementById('storyScroll');
 var sto=new IntersectionObserver(function(es){for(var i=0;i<es.length;i++){if(es[i].isIntersecting){es[i].target.classList.add('visible')}}},{threshold:0.3,root:storyScroll});
 var sl=document.querySelectorAll('.story-line');for(var i=0;i<sl.length;i++){(function(idx){setTimeout(function(){sto.observe(sl[idx])},idx*50)})(i)}
 var nav=document.getElementById('navbar');window.addEventListener('scroll',function(){if(window.scrollY>100){nav.classList.add('scrolled')}else{nav.classList.remove('scrolled')}});
-var floaties=['&#10024;','&#127881;','&#127874;','&#129395;','&#127880;','&#10084;&#65039;','&#129372;','&#127800;','&#127775;','&#127882;','&#128149;'];
-var fc=document.createElement('div');fc.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden';document.body.appendChild(fc);
-for(var i=0;i<20;i++){var el=document.createElement('div');el.textContent=floaties[i%floaties.length];var s=el.style;s.position='absolute';s.left=(Math.random()*100)+'%';s.fontSize=(Math.random()*1.5+1)+'rem';s.animation='floatAround linear infinite';s.animationDuration=(Math.random()*20+20)+'s';s.animationDelay=(Math.random()*20)+'s';s.opacity='0.3';fc.appendChild(el)}
-var st=document.createElement('style');st.textContent='@keyframes floatAround{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:0.3}90%{opacity:0.3}100%{transform:translateY(-10vh) rotate(720deg);opacity:0}}';document.head.appendChild(st);
+
 </script></body></html>

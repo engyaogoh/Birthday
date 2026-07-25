@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy 35th Birthday Daphne! 🎉</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600;700&family=Dancing+Script:wght@600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--pistachio:#a8d5a2;--pistachio-dark:#7cba74;--pistachio-light:#d4edda;--coral:#ff7e67;--coral-light:#ffb3a0;--gold:#f4c542;--gold-light:#ffe082;--cream:#fff8e7;--warm:#5a4a3a;--text:#3d2e24;--bg:#fdf6ed;--card-bg:rgba(255,255,255,0.92);--shadow:0 8px 32px rgba(0,0,0,0.1);--radius:24px}
+html{scroll-behavior:smooth}
+body{font-family:'Quicksand',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.7}
+#confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;background:linear-gradient(135deg,#2d5a27 0%,#5a8a4a 30%,#8bba7a 60%,#f4c542 100%);padding:2rem}
+.hero::before{content:'';position:absolute;inset:0;background:url('hero.png') center/cover no-repeat;opacity:0.65;animation:heroZoom 20s ease-in-out infinite alternate}
+@keyframes heroZoom{from{transform:scale(1)}to{transform:scale(1.08)}}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,transparent 0%,rgba(0,0,0,0.3) 100%)}
+.hero-content{position:relative;z-index:2}
+.hero-badge{display:inline-block;background:rgba(255,255,255,0.2);backdrop-filter:blur(10px);border:2px solid rgba(255,255,255,0.3);border-radius:100px;padding:0.5rem 1.8rem;color:#fff;font-size:0.95rem;font-weight:600;letter-spacing:0.15em;margin-bottom:1.5rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,10vw,7rem);color:#fff;text-shadow:0 4px 30px rgba(0,0,0,0.3);line-height:1.1;margin-bottom:0.5rem}
+.hero h1 .highlight{background:linear-gradient(135deg,var(--gold),#fff3b0,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-subtitle{font-family:'Dancing Script',cursive;font-size:clamp(1.5rem,4vw,3rem);color:var(--gold-light);text-shadow:0 2px 15px rgba(0,0,0,0.3);margin-bottom:1rem}
+.hero .sub{color:rgba(255,255,255,0.85);font-size:clamp(1rem,2vw,1.3rem);max-width:600px;margin:0 auto 2rem}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;color:rgba(255,255,255,0.7);font-size:0.85rem;text-align:center}
+.scroll-hint .arrow{font-size:1.5rem}
+section{padding:5rem 1.5rem;max-width:1000px;margin:0 auto}
+.section-label{display:inline-block;font-size:0.75rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--coral);margin-bottom:0.5rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);color:var(--warm);margin-bottom:2rem}
+#story{background:linear-gradient(180deg,var(--bg) 0%,var(--pistachio-light) 50%,var(--bg) 100%)}
+.story-container{max-width:700px;margin:0 auto;background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.story-scroll{max-height:70vh;overflow-y:auto;padding:2.5rem;scroll-behavior:smooth}
+.story-scroll::-webkit-scrollbar{width:6px}
+.story-scroll::-webkit-scrollbar-track{background:transparent}
+.story-scroll::-webkit-scrollbar-thumb{background:var(--pistachio);border-radius:3px}
+.story-line{opacity:0;transform:translateY(10px);transition:all 0.6s ease;margin-bottom:0.8rem;font-size:1.05rem;line-height:1.7;padding-left:0.5rem;border-left:3px solid transparent}
+.story-line.visible{opacity:1;transform:translateY(0)}
+.story-line:hover{border-left-color:var(--gold);padding-left:1rem}
+.story-line .time{font-size:0.7rem;color:var(--coral);font-weight:600;margin-right:0.5rem;opacity:0.6}
+.story-line .text{color:var(--text)}
+#messages{background:linear-gradient(180deg,var(--bg) 0%,#fff 100%)}
+.messages-grid{display:grid;gap:1.5rem}
+.msg-card{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:2rem;position:relative;transition:transform 0.3s ease,box-shadow 0.3s ease;opacity:0;transform:translateY(20px);border:2px solid transparent;overflow:hidden}
+.msg-card.revealed{opacity:1;transform:translateY(0)}
+.msg-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 12px 40px rgba(0,0,0,0.12)}
+.msg-card::before{content:'\201C';position:absolute;top:-10px;left:15px;font-family:'Playfair Display',serif;font-size:6rem;color:var(--pistachio);opacity:0.3;line-height:1}
+.msg-from{font-weight:700;color:var(--coral);margin-bottom:0.3rem;font-size:1rem}
+.msg-role{font-size:0.75rem;color:var(--pistachio-dark);font-weight:600;letter-spacing:0.05em;margin-bottom:1rem;text-transform:uppercase}
+.msg-body{font-size:0.95rem;line-height:1.8;color:var(--text);white-space:pre-line}
+.msg-body .highlight-text{background:linear-gradient(135deg,var(--gold-light),transparent);padding:0.1rem 0.4rem;border-radius:4px}
+.msg-card:nth-child(1){border-color:var(--pistachio)}
+.msg-card:nth-child(2){border-color:var(--gold)}
+.msg-card:nth-child(3){border-color:var(--coral-light)}
+.msg-card:nth-child(4){border-color:var(--pistachio-dark)}
+.msg-card.pinned-msg{background:linear-gradient(135deg,#fff 0%,var(--gold-light) 100%);border-color:var(--gold)}
+.msg-card.pinned-msg::before{color:var(--gold)}
+#gallery{background:linear-gradient(180deg,#fff 0%,var(--pistachio-light) 100%)}
+.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem}
+.gallery-item{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);aspect-ratio:4/3;opacity:0;transform:scale(0.9);transition:all 0.5s ease;cursor:pointer}
+.gallery-item.revealed{opacity:1;transform:scale(1)}
+.gallery-item:hover{transform:scale(1.03) rotate(0.5deg);box-shadow:0 16px 48px rgba(0,0,0,0.15)}
+.gallery-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease}
+.gallery-item:hover img{transform:scale(1.1)}
+.gallery-item .gallery-overlay{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1rem 1rem;background:linear-gradient(transparent,rgba(0,0,0,0.6));color:#fff;font-weight:600;font-size:0.9rem;transform:translateY(100%);transition:transform 0.3s ease}
+.gallery-item:hover .gallery-overlay{transform:translateY(0)}
+#timeline{background:var(--bg)}
+.timeline-wrap{position:relative;padding-left:2rem}
+.timeline-wrap::before{content:'';position:absolute;left:0.5rem;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--pistachio),var(--gold),var(--coral));border-radius:3px}
+.tl-item{position:relative;margin-bottom:2rem;padding-left:1.5rem;opacity:0;transform:translateX(-15px);transition:all 0.6s ease}
+.tl-item.revealed{opacity:1;transform:translateX(0)}
+.tl-item::before{content:'\2726';position:absolute;left:-1.75rem;top:0.2rem;font-size:1rem;color:var(--coral);background:var(--bg);padding:0.1rem}
+.tl-item:nth-child(2)::before{color:var(--pistachio)}
+.tl-item:nth-child(3)::before{color:var(--gold)}
+.tl-item:nth-child(4)::before{color:var(--coral)}
+.tl-item:nth-child(5)::before{color:var(--pistachio-dark)}
+.tl-year{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--warm);margin-bottom:0.3rem}
+.tl-text{font-size:0.95rem;color:#666}
+#closing{text-align:center;padding:6rem 1.5rem;background:linear-gradient(135deg,#2d5a27,#5a8a4a,#8bba7a,#f4c542);color:#fff;position:relative;overflow:hidden}
+#closing h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.5rem);margin-bottom:1rem;position:relative;z-index:1}
+#closing p{font-size:1.1rem;opacity:0.9;max-width:600px;margin:0 auto 1.5rem;position:relative;z-index:1}
+#closing .big-emoji{font-size:3rem;display:block;margin-bottom:1rem}
+#closing .signoff{font-family:'Dancing Script',cursive;font-size:1.8rem;color:var(--gold-light);position:relative;z-index:1}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0.8rem 1.5rem;display:flex;justify-content:space-between;align-items:center;transition:all 0.3s ease;background:transparent}
+nav.scrolled{background:rgba(255,255,255,0.95);backdrop-filter:blur(15px);box-shadow:0 2px 20px rgba(0,0,0,0.08)}
+nav .logo{font-family:'Dancing Script',cursive;font-size:1.3rem;color:#fff;transition:color 0.3s}
+nav.scrolled .logo{color:var(--warm)}
+nav .nav-links{display:flex;gap:1rem}
+nav .nav-links a{color:rgba(255,255,255,0.85);text-decoration:none;font-size:0.8rem;font-weight:600;letter-spacing:0.05em;transition:color 0.3s}
+nav.scrolled .nav-links a{color:var(--warm)}
+nav .nav-links a:hover{color:var(--gold)}
+.nav-toggle{display:none}
+@media(max-width:768px){section{padding:3rem 1rem}.story-scroll{padding:1.5rem;max-height:60vh}.msg-card{padding:1.5rem}.gallery-grid{grid-template-columns:1fr 1fr}nav .nav-links{display:none}.nav-toggle{display:block;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer}nav.scrolled .nav-toggle{color:var(--warm)}nav .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:rgba(255,255,255,0.98);padding:1rem;box-shadow:0 4px 20px rgba(0,0,0,0.1);border-radius:0 0 16px 16px}nav .nav-links.open a{color:var(--warm);padding:0.5rem 0}}
+@media(max-width:480px){.gallery-grid{grid-template-columns:1fr}.hero h1{font-size:clamp(2.5rem,15vw,4rem)}}
+</style></head><body>
+<canvas id="confetti-canvas"></canvas>
+<nav id="navbar"><span class="logo">&#x2764;&#xFE0F; &#x5F00;&#x5FC3;&#x679C;</span><button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#x2630;</button><div class="nav-links"><a href="#story">Story</a><a href="#messages">Messages</a><a href="#gallery">Photos</a><a href="#closing">&#x2728;</a></div></nav>
+<section class="hero"><div class="hero-content"><div class="hero-badge">&#127874; 35 Years of Being the Happy Nut &#129372;</div><h1>Happy Birthday<br><span class="highlight">Daphne</span></h1><div class="hero-subtitle">~ Xiao Ting ~</div><p class="sub">To the one who never stopped smiling, never stopped moving, and never once said no to an adventure &#8212; this is your day. &#127881;</p></div><div class="scroll-hint"><div class="arrow">&#x2304;</div>Scroll for love</div></section>
+<section id="timeline"><div class="section-label">&#10054; The Adventure So Far</div><h2 class="section-title">A Life of <span class="highlight-text">No Regrets</span></h2><div class="timeline-wrap">
+<div class="tl-item"><div class="tl-year">&#127912; The Artist</div><div class="tl-text">Built entire worlds out of nothing but a pencil and a stubborn idea that refused to stay small. Animation, drawing, creating things that didn't exist yet.</div></div>
+<div class="tl-item"><div class="tl-year">&#9749; The Daredevil</div><div class="tl-text">Bitter coffee at 7? Drank it. Bike with no hands? Rode it. A dare was never a dare &#8212; it was an <em>invitation</em>. And you never said no.</div></div>
+<div class="tl-item"><div class="tl-year">&#128202; The Detour</div><div class="tl-text">Accounting. Numbers, spreadsheets, a "sensible" future. It nearly hollowed you out &#8212; but you got back up. You always get back up.</div></div>
+<div class="tl-item"><div class="tl-year">&#128062; The Heart</div><div class="tl-text">You found pet grooming. The same hands that drew worlds, the same hands that hugged every stray creature &#8212; finally in the right place. A job you actually love.</div></div>
+<div class="tl-item"><div class="tl-year">&#10024; Now &#8212; 35 &amp; Fabulous</div><div class="tl-text">Bitter and sweet, fearless and tender, changing shape as many times as needed. No regrets. Here's to whatever comes next!</div></div>
+</div></section>
+<section id="story"><div class="section-label">&#128214; Her Words</div><h2 class="section-title">The <span class="highlight-text">Happy Nut</span> of Our Family Tree</h2><div class="story-container"><div class="story-scroll" id="storyScroll">
+<div class="story-line"><span class="text">hi I'm the nut</span></div>
+<div class="story-line"><span class="text">the happy nut of this family tree</span></div>
+<div class="story-line"><span class="text">the one who never stopped smiling</span></div>
+<div class="story-line"><span class="text">never stopped moving — never</span></div>
+<div class="story-line"><span class="text">not once stopped saying yes to whatever came next</span></div>
+<div class="story-line"><span class="text">don't believe me? give me 5 minutes. I'll show you.</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">in my house I was the entertainment</span></div>
+<div class="story-line"><span class="text">free of charge — I'd strike a pose nobody asked for</span></div>
+<div class="story-line"><span class="text">bust out a dance move that belonged to no known style of dance</span></div>
+<div class="story-line"><span class="text">and somehow every single time</span></div>
+<div class="story-line"><span class="text">I'd get the whole family laughing</span></div>
+<div class="story-line"><span class="text">dad wiping his eyes, mum shaking her head</span></div>
+<div class="story-line"><span class="text">my sister and brother groaning and laughing at the same time</span></div>
+<div class="story-line"><span class="text">telling me how ridiculous I was</span></div>
+<div class="story-line"><span class="text">I loved that — being the reason the room got louder</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">bitter medicine — I didn't flinch</span></div>
+<div class="story-line"><span class="text">first cup of coffee at 7 — no sugar, no milk, straight up bitter</span></div>
+<div class="story-line"><span class="text">because a dare was never really a dare to me</span></div>
+<div class="story-line"><span class="text">it was an invitation — and I never said no to an invitation</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">one day I rode my bike with both hands off the handlebars</span></div>
+<div class="story-line"><span class="text">not because I wasn't scared — I was terrified</span></div>
+<div class="story-line"><span class="text">but I wanted to know what freedom felt like</span></div>
+<div class="story-line"><span class="text">and I didn't want to wait until I was old enough</span></div>
+<div class="story-line"><span class="text">so I let go — for about three glorious seconds</span></div>
+<div class="story-line"><span class="text">I was flying... then I met a parked car</span></div>
+<div class="story-line"><span class="text">my spectacles didn't survive. neither did my dignity.</span></div>
+<div class="story-line"><span class="text">but those three seconds of flying?</span></div>
+<div class="story-line"><span class="text">stayed with me a lot longer than the bruise did</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">in secondary school I decided I was going to be a ninja</span></div>
+<div class="story-line"><span class="text">I'd watched enough anime — ninjas were cool!</span></div>
+<div class="story-line"><span class="text">got thrown to the mat more times than I can count</span></div>
+<div class="story-line"><span class="text">not chasing belts or glory — just that feeling</span></div>
+<div class="story-line"><span class="text">a little stronger today than yesterday</span></div>
+<div class="story-line"><span class="text">a little braver than the version from last week</span></div>
+<div class="story-line"><span class="text">one step at a time — that's how I built every part of myself</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">a plant — it died</span></div>
+<div class="story-line"><span class="text">a goldfish — it died too</span></div>
+<div class="story-line"><span class="text">a turtle — that one lasted longer</span></div>
+<div class="story-line"><span class="text">but honestly it just sat there, becoming furniture</span></div>
+<div class="story-line"><span class="text">I just didn't know yet what loving something properly actually took</span></div>
+<div class="story-line"><span class="text">then came the dog — and something <em>clicked</em></span></div>
+<div class="story-line"><span class="text">this one got all of me</span></div>
+<div class="story-line"><span class="text">the version of love I'd been trying to figure out since the plant</span></div>
+<div class="story-line"><span class="text">turns out I just needed the right heart to practice on</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">loving without limits isn't something you're born knowing</span></div>
+<div class="story-line"><span class="text">you fumble it — you forget to water it, literally</span></div>
+<div class="story-line"><span class="text">then if you're lucky, something comes along</span></div>
+<div class="story-line"><span class="text">that teaches you how to actually show up</span></div>
+<div class="story-line"><span class="text">for me — that was the dog &#10084;&#65039;</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">in college I drew — I animated</span></div>
+<div class="story-line"><span class="text">built entire worlds out of nothing but a pencil</span></div>
+<div class="story-line"><span class="text">and a stubborn idea that refused to stay small</span></div>
+<div class="story-line"><span class="text">my imagination was never going to shrink itself</span></div>
+<div class="story-line"><span class="text">to fit what the world called &ldquo;realistic&rdquo;</span></div>
+<div class="story-line"><span class="text">I wanted to make things that didn't exist yet</span></div>
+<div class="story-line"><span class="text">so I did</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">then life did what life does — it tested the dream</span></div>
+<div class="story-line"><span class="text">I got there — I was an artist</span></div>
+<div class="story-line"><span class="text">but there was barely a market for it</span></div>
+<div class="story-line"><span class="text">so I did something practical — accounting</span></div>
+<div class="story-line"><span class="text">it nearly hollowed me out</span></div>
+<div class="story-line"><span class="text">paid the bills — drained the joy clean out of me</span></div>
+<div class="story-line"><span class="text">one of the hardest falls I'd had</span></div>
+<div class="story-line"><span class="text">but I got back up — I always get back up</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">I found my way to pet grooming</span></div>
+<div class="story-line"><span class="text">the same hands that once drew imaginary worlds</span></div>
+<div class="story-line"><span class="text">the same hands that hugged every stray creature</span></div>
+<div class="story-line"><span class="text">were exactly the hands this job needed</span></div>
+<div class="story-line"><span class="text">a job I actually love — a job people actually need</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">do you regret the zigzags? the detours? the bruises?</span></div>
+<div class="story-line"><span class="text">here's my answer:</span></div>
+<div class="story-line"><span class="text">my life wasn't built on the right answers</span></div>
+<div class="story-line"><span class="text">it was built on the courage to keep choosing for myself</span></div>
+<div class="story-line"><span class="text">every single time</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">life was never about the safest path</span></div>
+<div class="story-line"><span class="text">or the answer everyone else agreed on</span></div>
+<div class="story-line"><span class="text">it was about being who I actually am</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">I live. I love. I explore. I have fun.</span></div>
+<div class="story-line"><span class="text">And I have no regrets.</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">this has been my adventure</span></div>
+<div class="story-line"><span class="text">bitter and sweet, fearless and tender</span></div>
+<div class="story-line"><span class="text">changing shape as many times as it needed to</span></div>
+<div class="story-line" style="margin-top:1.5rem;border-left-color:var(--coral)"></div>
+<div class="story-line"><span class="text">&#10024; so tell me — how about you?</span></div>
+</div></div></section>
+<section id="messages"><div class="section-label">&#128140; Words From Family</div><h2 class="section-title">Messages With <span class="highlight-text">Love</span></h2><div class="messages-grid">
+<div class="msg-card"><div class="msg-from">Mum</div><div class="msg-role">&#10084;&#65039; Mother</div><div class="msg-body">Youngest child of mine. Curiosity is always in you. Learning different subjects that always surprises me but you always pass in whatever you learn. However, putting it into practice is a different story &#128514;<br><br>Creativity is in you and it all started with <span class="highlight-text">toilet rolls</span>. You bring laughter and fun into this otherwise boring family, thus creating precious memories for all of us.<br><br>Your happiness is my greatest wish and thank you for being my child. &#10084;&#65039;</div></div>
+<div class="msg-card"><div class="msg-from">Dad</div><div class="msg-role">&#128104; Father</div><div class="msg-body">I don't remember when you grew up. You were always a child to me. The fun loving character that worries your mum and me.<br><br>But you grew up and then you told us you wanted to get married. That's when I realised that you really have grown up to be an adult who seeks your own life.<br><br>To me you will always be a child and I will always be there for you no matter how old you are.<br><br><span class="highlight-text">Happy Birthday Xiao Ting</span> with love from father.</div></div>
+<div class="msg-card pinned-msg"><div class="msg-from">Xiao Yen</div><div class="msg-role">&#128105; Big Sister</div><div class="msg-body">Happy Birthday to my youngest sister, Xiao Ting &#10084;&#65039;<br><br>In every family, there is always that one person who brings unexpected laughter into the room. For us, that person has always been <span class="highlight-text">you</span>.<br><br>You have always been the most outstandingly funny person in our family &#8212; not because you were trying to be funny, but because all your silly little actions, random ideas, and &ldquo;I know what I'm doing&rdquo; confidence somehow became part of the joy you brought into our home. &#128514;<br><br>You have always been the <span class="highlight-text">special one</span>: the rebellious one who didn't really like to follow my instructions; the daring one who was never afraid to try something new; the <span class="highlight-text">shining one</span> with those big, bright eyes that always carried so much hope; and of course, the pretty one since young, with those sweet facial features and the smile that everyone remembers.<br><br>Growing up with you was not always easy for me &#128514; There were times you didn't finish your homework, and somehow it became my responsibility &#8212; you really gave me quite a few headaches back then.<br><br>But looking back now, I realise that through you, I also learned a lot. You taught me that <span class="highlight-text">not everyone sees life the same way</span>. You taught me that generosity can come so naturally. You taught me that love can be expressed in simple, unexpected ways.<br><br><span class="highlight-text">That is the beauty of you.</span> You have your own way of seeing the world.<br><br>Today, I am really happy to see you in this stage of life with someone who truly loves you. Someone who connects with you through the things you enjoy, cooks for you, takes care of you, and showers you with all the love you deserve.<br><br>I am also very happy that you finally found something that keeps your heart going: <span class="highlight-text">pet grooming</span>. Congratulations on finding a career that you are passionate about! &#129395;<br><br>May this new year of your life bring you more courage, more growth, more love, and more reasons to shine brightly as ever.<br><br><span class="highlight-text">Happy Birthday, Xiao Ting.</span> Continue to be the light, laughter, and love that you are. &#10084;&#65039;<br><br>With Much Love,<br>Xiao Yen.</div></div>
+<div class="msg-card"><div class="msg-from">Eng Yao</div><div class="msg-role">&#128102; Your Big Bro</div><div class="msg-body">Happy 35th Birthday, Daphne!!<br><br><span class="highlight-text">Thirty-five years ago, our family got its &#24320;&#24515;&#26524; (Happy nut).</span><br><br>I mean that with all the love in the world. You were the one who never stopped smiling, never stopped moving, never &#8212; not once &#8212; stopped saying yes to whatever challenges came next. And thirty-five years later, watching you, I don't think that's changed one bit.<br><br>You were the entertainment. Free of charge. You'd strike a pose nobody asked for. And somehow, every single time, you'd get the whole family laughing, telling you how ridiculous you were.<br><br>You loved being the <span class="highlight-text">reason the room got louder</span>. And honestly? So did we.<br><br>You fell. And you found your feet &#8212; again and again. You found your way to pet grooming &#8212; and it turned out the same hands that once drew imaginary worlds, the same hands that once hugged every stray creature that crossed your path, were exactly the hands that job needed.<br><br>You live. You love. You explore. You have fun. And <span class="highlight-text">you have no regrets</span>.<br><br>This has been your adventure &#8212; bitter and sweet, fearless and tender, changing shape as many times as it needed to. And I've been lucky enough to watch every version of it.<br><br><span class="highlight-text">Happy 35th birthday, Daphne.</span> Here's to whatever adventure comes next &#8212; I'll be cheering you on, same as always. &#10084;&#65039;<br><br>Love,<br>Your big brother</div></div>
+<div class="msg-card"><div class="msg-from">Chee Ling, Esther &amp; Lydia</div><div class="msg-role">&#128105;&#8205;&#128103;&#8205;&#128103; Sister-in-law &amp; Nieces</div><div class="msg-body"><strong>Chee Ling:</strong><br>Happy birthday, my sister-in-law &#127874;<br><br><strong>Esther (4 yrs old):</strong><br>Happy birthday! &#127880;<br><br><strong>Lydia (2 yrs old):</strong><br>Happy birthday! &#127880;</div></div>
+</div></section>
+<section id="gallery"><div class="section-label">&#128247; Precious Moments</div><h2 class="section-title">Through the <span class="highlight-text">Years</span></h2><div class="gallery-grid">
+<div class="gallery-item"><img src="daphne_1.jpeg" alt="Daphne photo 1" loading="lazy"><div class="gallery-overlay">&#10024; Glowing as always &#10024;</div></div>
+<div class="gallery-item"><img src="daphne_2.jpeg" alt="Daphne photo 2" loading="lazy"><div class="gallery-overlay">&#127800; Beautiful smile &#128522;</div></div>
+<div class="gallery-item"><img src="daphne_3.jpeg" alt="Daphne photo 3" loading="lazy"><div class="gallery-overlay">&#127775; Radiant and full of life &#128149;</div></div>
+<div class="gallery-item"><img src="daphne_4.jpeg" alt="Daphne photo 4" loading="lazy"><div class="gallery-overlay">&#127881; The happy nut herself! &#129372;</div></div>
+</div></section>
+<section id="closing"><div class="big-emoji">&#127874;&#129395;&#127881;</div><h2>Happy 35th Birthday,<br>Daphne!</h2><p>To the happy nut of our family tree &#8212; may your next year be filled with as much laughter, courage, and joy as you've given all of us.</p><p style="font-size:1.2rem;">You live. You love. You explore. You have fun.<br><strong>And you have no regrets.</strong> &#10024;</p><div class="signoff">With all our love &#8212; Your family &#10084;&#65039;</div></section>
+<script>
+var canvas=document.getElementById('confetti-canvas'),ctx=canvas.getContext('2d');var W,H;
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}resize();window.addEventListener('resize',resize);
+var pieces=[];var COLORS=['#a8d5a2','#ff7e67','#f4c542','#ffb3a0','#ffe082','#7cba74','#fff','#ffd700'];
+function C(){this.x=Math.random()*W;this.y=Math.random()*H-H;this.w=Math.random()*8+4;this.h=this.w*0.6;this.color=COLORS[Math.floor(Math.random()*COLORS.length)];this.vx=(Math.random()-0.5)*2;this.vy=Math.random()*2+1;this.rot=Math.random()*360;this.rv=(Math.random()-0.5)*4;this.opacity=Math.random()*0.7+0.3}
+C.prototype.update=function(){this.x+=this.vx;this.y+=this.vy;this.rot+=this.rv;if(this.y>H+20)this.reset()};
+C.prototype.reset=function(){this.x=Math.random()*W;this.y=Math.random()*H-H};
+C.prototype.draw=function(){ctx.save();ctx.translate(this.x,this.y);ctx.rotate(this.rot*Math.PI/180);ctx.globalAlpha=this.opacity;ctx.fillStyle=this.color;ctx.fillRect(-this.w/2,-this.h/2,this.w,this.h);ctx.restore()};
+for(var i=0;i<80;i++){var p=new C();p.y=Math.random()*H;pieces.push(p)}
+function anim(){ctx.clearRect(0,0,W,H);for(var i=0;i<pieces.length;i++){pieces[i].update();pieces[i].draw()}requestAnimationFrame(anim)}anim();
+var obs=new IntersectionObserver(function(es){for(var i=0;i<es.length;i++){if(es[i].isIntersecting){es[i].target.classList.add('revealed');es[i].target.classList.add('visible')}}},{threshold:0.15});
+var q=document.querySelectorAll('.msg-card,.gallery-item,.tl-item');for(var i=0;i<q.length;i++){obs.observe(q[i])}
+var storyScroll=document.getElementById('storyScroll');
+var sto=new IntersectionObserver(function(es){for(var i=0;i<es.length;i++){if(es[i].isIntersecting){es[i].target.classList.add('visible')}}},{threshold:0.3,root:storyScroll});
+var sl=document.querySelectorAll('.story-line');for(var i=0;i<sl.length;i++){(function(idx){setTimeout(function(){sto.observe(sl[idx])},idx*50)})(i)}
+var nav=document.getElementById('navbar');window.addEventListener('scroll',function(){if(window.scrollY>100){nav.classList.add('scrolled')}else{nav.classList.remove('scrolled')}});
+var floaties=['&#10024;','&#127881;','&#127874;','&#129395;','&#127880;','&#10084;&#65039;','&#129372;','&#127800;','&#127775;','&#127882;','&#128149;'];
+var fc=document.createElement('div');fc.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden';document.body.appendChild(fc);
+for(var i=0;i<20;i++){var el=document.createElement('div');el.textContent=floaties[i%floaties.length];var s=el.style;s.position='absolute';s.left=(Math.random()*100)+'%';s.fontSize=(Math.random()*1.5+1)+'rem';s.animation='floatAround linear infinite';s.animationDuration=(Math.random()*20+20)+'s';s.animationDelay=(Math.random()*20)+'s';s.opacity='0.3';fc.appendChild(el)}
+var st=document.createElement('style');st.textContent='@keyframes floatAround{0%{transform:translateY(100vh) rotate(0deg);opacity:0}10%{opacity:0.3}90%{opacity:0.3}100%{transform:translateY(-10vh) rotate(720deg);opacity:0}}';document.head.appendChild(st);
+</script></body></html>
